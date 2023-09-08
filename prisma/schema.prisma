@@ -7,43 +7,20 @@ generator client {
 
 datasource db {
   provider =  "mysql"
-  url      = "mysql://prisma:123@database-1.ca6mvsslfzeh.us-east-1.rds.amazonaws.com:3306/dataset" 
+  url      = env("DATABASE_URL") 
 }
 
 
-model youtube_channels{
-  id Int @id @default(autoincrement())
-  name String @db.VarChar(255) @unique
-  description String?
-  link String?
-  subscribers Int @default(0)
-  createdAt DateTime @default(now())
-  updated DateTime @updatedAt
 
+
+
+model users {
+  id         Int      @id @default(autoincrement())
+  username   String   @db.VarChar(255) @unique
+  password   String   @db.VarChar(255)
+  registrationTokens Int     @default(10) // Set a default value (0 in this case, change it if needed)
+  email      String   @db.VarChar(255) @unique
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @default(now())
 }
 
-model twitter_accounts{
-  id Int @id @default(autoincrement())
-  username String @db.VarChar(255) @unique
-  bio String?
-  link String?
-  
-
-}
-model twitter_accounts2{
-  id Int @id @default(autoincrement())
-  username String @db.VarChar(255) @unique
-  bio String?
-  link String?
-
-}
-
-model users{
-  id Int @id @default(autoincrement())
-  username String @db.VarChar(255) @unique
-  password String @db.VarChar(255)
-  email String @db.VarChar(255) @unique
-  createdAt DateTime @default(now())
-  updated DateTime @updatedAt
-
-}

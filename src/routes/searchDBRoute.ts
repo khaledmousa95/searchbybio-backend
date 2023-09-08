@@ -6,7 +6,6 @@ import {moreResultsButton} from "../controllers/twitter/searchTwiterMoreButton.j
 const router = express.Router();
 // post is used to create initial query
 export const searchRoutePost = router.post('/', getSearchTwitterDatabase
-
 );
 // patch is used to load more results
 export const searchRouteGet = router.patch('/', moreResultsButton

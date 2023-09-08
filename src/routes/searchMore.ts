@@ -1,5 +1,4 @@
 import express from 'express';
-import {getSearchTwitterDatabase} from "../controllers/twitter/searchTwitterController.js"
 import {moreResultsButton} from "../controllers/twitter/searchTwiterMoreButton.js"
 
 

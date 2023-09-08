@@ -4,6 +4,10 @@ import * as dotenv from 'dotenv';
 import { searchRouteGet, searchRoutePost } from './routes/searchDBRoute.js';
 import { searchMorePost } from './routes/searchMore.js';
 import * as cors from "cors";
+import { userRegister } from './routes/users/registerUser.js';
+import { userLogin } from './routes/users/loginUser.js';
+import { userLogout } from './routes/users/logoutUser.js';
+import { authenticateJWT } from './middleware/Auth.js';
 // const prisma = new PrismaClient();
 const app = express();
 const port = 5000;
@@ -12,9 +16,14 @@ app.use(cors.default());
 dotenv.config();
 app.use(express.json()); // Parse JSON
 app.use(express.urlencoded({ extended: true })); // Parse URL-encoded data
+// auth user
+// search routes
 app.use('/api/search', searchRouteGet, searchRoutePost);
-app.use('/api/search/more', searchMorePost);
-// console.log("index.ts: app.use('/api/search', searchRoute);");
+app.use('/api/search/more', authenticateJWT, searchMorePost);
+// user routes
+app.use('/api/register', userRegister);
+app.use('/api/login', userLogin);
+app.use('/api/logout', userLogout);
 // app.use(errorHandler)
 app.listen(port, () => {
     console.log(`Listening on port ${port}`);
