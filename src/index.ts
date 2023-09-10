@@ -9,7 +9,8 @@ import { userRegister } from './routes/users/registerUser.js';
 import {  userLogin } from './routes/users/loginUser.js';
 import { userLogout } from './routes/users/logoutUser.js';
 import { authenticateJWT } from './middleware/Auth.js';
-
+import { userDelete } from './routes/users/deleteUser.js';
+import cookieParser from "cookie-parser";
 // const prisma = new PrismaClient();
 const app = express();
 const port = 5000;
@@ -17,20 +18,18 @@ const port = 5000;
 //open cors for all origins
 app.use(cors.default());
 dotenv.config();
-
+//middleware
 app.use(express.json()); // Parse JSON
 app.use(express.urlencoded({ extended: true })); // Parse URL-encoded data
-// auth user
-
+app.use(cookieParser());
 // search routes
 app.use('/api/search', searchRouteGet,searchRoutePost);
 app.use('/api/search/more', authenticateJWT,searchMorePost);
 // user routes
+app.use('/api/delete', authenticateJWT,userDelete );
 app.use('/api/register',userRegister );
 app.use('/api/login',userLogin );
 app.use('/api/logout',userLogout );
-
-
 
 
 // app.use(errorHandler)
