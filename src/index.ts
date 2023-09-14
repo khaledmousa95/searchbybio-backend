@@ -11,6 +11,7 @@ import { userLogout } from './routes/users/logoutUser.js';
 import { authenticateJWT } from './middleware/Auth.js';
 import { userDelete } from './routes/users/deleteUser.js';
 import cookieParser from "cookie-parser";
+import { tokenUpdate } from './routes/users/updateUser.js';
 // const prisma = new PrismaClient();
 const app = express();
 const port = 5000;
@@ -26,10 +27,12 @@ app.use(cookieParser());
 app.use('/api/search', searchRouteGet,searchRoutePost);
 app.use('/api/search/more', authenticateJWT,searchMorePost);
 // user routes
-app.use('/api/delete', authenticateJWT,userDelete );
-app.use('/api/register',userRegister );
-app.use('/api/login',userLogin );
-app.use('/api/logout',userLogout );
+app.use('/api/user/login',userLogin );
+app.use('/api/user/register',userRegister );
+app.use('/api/user/logout',userLogout );
+app.use('/api/user/delete', authenticateJWT,userDelete );
+app.use('/api/user/update',authenticateJWT,tokenUpdate );
+
 
 
 // app.use(errorHandler)

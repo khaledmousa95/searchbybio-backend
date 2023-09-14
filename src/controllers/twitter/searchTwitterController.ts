@@ -41,7 +41,9 @@ export const getSearchTwitterDatabase = async (req, res) => {
     return results;
 });
 
-console.log(twitterSearchResults);
+if(twitterSearchResults){
+    console.log("results are here!");
+}
 res.json(twitterSearchResults);
             await browser.close()
         }

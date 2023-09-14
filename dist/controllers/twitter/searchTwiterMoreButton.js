@@ -15,7 +15,6 @@ export const moreResultsButton = async (req, res) => {
             const buttonSelector = '#react-layout #more-results';
             await page.waitForSelector(buttonSelector);
             console.log("fire1");
-            console.log(minRange, maxRange, "first function");
             // Click the button
             const buttonClick = await page.click(buttonSelector);
             console.log("fire2");
@@ -41,7 +40,9 @@ export const moreResultsButton = async (req, res) => {
                 }
                 return results;
             }, minRange, maxRange);
-            console.log(twitterSearchResults);
+            if (twitterSearchResults) {
+                console.log("results are here!");
+            }
             res.json(twitterSearchResults);
             await browser.close();
         };

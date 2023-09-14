@@ -22,7 +22,7 @@ export const moreResultsButton = async(req,res)=>{
         const buttonSelector = '#react-layout #more-results';   
         await page.waitForSelector(buttonSelector);
         console.log("fire1")
-        console.log(minRange,maxRange ,"first function")
+  
         
     // Click the button
         const buttonClick = await page.click(buttonSelector);
@@ -55,8 +55,10 @@ for (let i = Number(minRange); i <= Number(maxRange); i++) {
 
 return results;
 },minRange, maxRange);
+if(twitterSearchResults){
 
-console.log(twitterSearchResults);
+    console.log("results are here!");
+}
 res.json(twitterSearchResults);
         await browser.close()
     }

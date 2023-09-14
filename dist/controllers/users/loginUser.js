@@ -38,7 +38,7 @@ export const loginUser = async (req, res) => {
         }
         console.log(user);
         const token = await jwt.sign({ id: user.id, }, process.env.JWT_KEY, { expiresIn: "365d" });
-        res.json({ username: user.username, email: user.email, token: token, id: user.id });
+        res.json({ username: user.username, email: user.email, token: token, id: user.id, registrationTokens: user.registrationTokens });
     }
     catch (error) {
         console.error(error);
