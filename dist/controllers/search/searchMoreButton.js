@@ -11,7 +11,7 @@ export const moreResultsButton = async (req, res) => {
             const { chosenPlatform } = await req.body;
             console.log(chosenPlatform, 'chosen platform in the searchmorebutton backend');
             const searchWithPlusSigns = "search" || searchValue.replace(/ /g, '+');
-            await page.goto(`https://duckduckgo.com/?q=site%3Atiktok.com+${searchWithPlusSigns}&ia=web`);
+            await page.goto(`https://duckduckgo.com/?q=site%3A${chosenPlatform}.com+${searchWithPlusSigns}&ia=web`);
             const buttonSelector = '#react-layout #more-results';
             await page.waitForSelector(buttonSelector);
             // Click the button
@@ -47,4 +47,4 @@ export const moreResultsButton = async (req, res) => {
         res.status(500).json({ message: "Server Error" });
     }
 };
-//# sourceMappingURL=searchTwiterMoreButton.js.map
+//# sourceMappingURL=searchMoreButton.js.map

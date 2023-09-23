@@ -1,7 +1,7 @@
 // making a search controller to handle the search requests using prisma client
 import puppeteer from 'puppeteer';
 
-export const getSearchTwitterDatabase = async (req, res) => {  
+export const SearchPlatform = async (req, res) => {  
     try {
 
         const searchResults = async function(){
@@ -9,14 +9,13 @@ export const getSearchTwitterDatabase = async (req, res) => {
             const browser = await puppeteer.launch({ headless: "new" });
             const page = await browser.newPage()
             const { searchValue } = await req.body;
-            console.log(searchValue)
+            const {chosenPlatform}  = await req.body;
+            console.log(chosenPlatform, 'chosen platform in the searchController backend')
             const adjustedSearchValue = JSON.stringify(searchValue);
             const searchWithPlusSigns =  await adjustedSearchValue.trim() !==null ? adjustedSearchValue.replace(/ /g, '+') : null;
             const parsedObject = JSON.parse(searchWithPlusSigns);
-            console.log(parsedObject)
-            console.log(parsedObject , 'what goes')
 
-            await page.goto(`https://duckduckgo.com/?q=site%3Atwitter.com+${parsedObject}&ia=web`)
+            await page.goto(`https://duckduckgo.com/?q=site%3A${chosenPlatform}.com+${parsedObject}&ia=web`)
         
     
    const twitterSearchResults = await page.evaluate(() => {
@@ -42,7 +41,6 @@ export const getSearchTwitterDatabase = async (req, res) => {
 });
 
 if(twitterSearchResults){
-    console.log("results are here!");
 }
 res.json(twitterSearchResults);
             await browser.close()

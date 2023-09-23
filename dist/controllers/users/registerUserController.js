@@ -36,7 +36,6 @@ export const createUser = async (req, res) => {
                 createdAt: new Date(),
             },
         });
-        console.log('User created:', createdUser);
         res.status(201).json({ message: 'User created successfully', user: createdUser });
     }
     catch (error) {

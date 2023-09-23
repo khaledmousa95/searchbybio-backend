@@ -1,5 +1,5 @@
 import express from 'express';
-import {moreResultsButton} from "../controllers/twitter/searchTwiterMoreButton.js"
+import {moreResultsButton} from "../../controllers/search/searchMoreButton.js"
 
 
 const router = express.Router();

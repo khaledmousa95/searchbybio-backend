@@ -4,7 +4,6 @@ import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 export const deleteUser = async (req, res) => {
     const userId = parseInt(req.params.id, 10); // Convert to number if necessary
-    console.log(userId, "this is user id1");
     try {
         const user = await prisma.users.findUnique({
             where: {

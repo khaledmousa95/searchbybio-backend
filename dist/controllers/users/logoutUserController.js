@@ -3,7 +3,6 @@ export const logoutUser = (req, res) => {
         // Perform logout actions here, such as clearing the user's session or token
         // For example, if using sessions:
         res.status(200).json({ message: 'Logged out complete' });
-        console.log("logged out");
     }
     catch (error) {
         console.error('Logout error:', error);

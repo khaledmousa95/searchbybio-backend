@@ -9,35 +9,22 @@ export const moreResultsButton = async(req,res)=>{
 
         const browser = await puppeteer.launch({ headless: "new" });
         const page = await browser.newPage()
-        console.log("fire0")
          const {searchValue}  = await req.body;
           minRange  = await req.body.minRange;
           maxRange  = await req.body.maxRange;
-
-
-
-        console.log(searchValue,"search from button component")
-        const searchWithPlusSigns =   "search" || searchValue.replace(/ /g, '+');            
-        await page.goto(`https://duckduckgo.com/?q=site%3Atwitter.com+${searchWithPlusSigns}&ia=web`)
+         const {chosenPlatform}  = await req.body;
+         console.log(chosenPlatform, 'chosen platform in the searchmorebutton backend')
+        const searchWithPlusSigns =    "search" || searchValue.replace(/ /g, '+');            
+        await page.goto(`https://duckduckgo.com/?q=site%3A${chosenPlatform}.com+${searchWithPlusSigns}&ia=web`)
         const buttonSelector = '#react-layout #more-results';   
         await page.waitForSelector(buttonSelector);
-        console.log("fire1")
-  
-        
     // Click the button
-        const buttonClick = await page.click(buttonSelector);
-  
-       console.log("fire2")
-
+        await page.click(buttonSelector);
     // Wait for some time to let the page update
        await page.waitForTimeout(3000);
-    
-       console.log(minRange,maxRange ,"middle")
 
 const twitterSearchResults = await page.evaluate((minRange, maxRange) => {
-    console.log(minRange,maxRange ,"second function1")
 const results = [];
-console.log(minRange,maxRange ,"second function2")
 
 for (let i = Number(minRange); i <= Number(maxRange); i++) {
     const resultElement = document.querySelector(`#react-layout .react-results--main #r1-${i}`);
@@ -56,8 +43,6 @@ for (let i = Number(minRange); i <= Number(maxRange); i++) {
 return results;
 },minRange, maxRange);
 if(twitterSearchResults){
-
-    console.log("results are here!");
 }
 res.json(twitterSearchResults);
         await browser.close()

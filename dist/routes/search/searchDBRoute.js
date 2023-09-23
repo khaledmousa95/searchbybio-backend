@@ -1,6 +1,6 @@
 import express from 'express';
-import { SearchPlatform } from "../controllers/search/searchController.js";
-import { moreResultsButton } from "../controllers/search/searchMoreButton.js";
+import { SearchPlatform } from "../../controllers/search/searchController.js";
+import { moreResultsButton } from "../../controllers/search/searchMoreButton.js";
 const router = express.Router();
 // post is used to create initial query
 export const searchRoutePost = router.post('/', SearchPlatform);

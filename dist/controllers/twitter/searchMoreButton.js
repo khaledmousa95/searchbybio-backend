@@ -47,4 +47,4 @@ export const moreResultsButton = async (req, res) => {
         res.status(500).json({ message: "Server Error" });
     }
 };
-//# sourceMappingURL=searchTwiterMoreButton.js.map
+//# sourceMappingURL=searchMoreButton.js.map

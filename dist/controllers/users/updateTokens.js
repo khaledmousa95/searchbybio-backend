@@ -15,7 +15,6 @@ export const updateTokens = async (req, res) => {
             },
         });
         if (!user) {
-            console.log("user not found");
             return res.status(404).json({ message: 'User not found' });
         }
         // Update the registrationTokens
@@ -27,7 +26,6 @@ export const updateTokens = async (req, res) => {
                 registrationTokens,
             },
         });
-        console.log("token updated succesfully");
         res.status(200).json({ message: 'Registration tokens updated successfully', user: updatedUser });
     }
     catch (error) {

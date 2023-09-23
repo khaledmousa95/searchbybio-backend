@@ -6,13 +6,10 @@ export const getSearchTwitterDatabase = async (req, res) => {
             const browser = await puppeteer.launch({ headless: "new" });
             const page = await browser.newPage();
             const { searchValue } = await req.body;
-            console.log(searchValue);
             const adjustedSearchValue = JSON.stringify(searchValue);
             const searchWithPlusSigns = await adjustedSearchValue.trim() !== null ? adjustedSearchValue.replace(/ /g, '+') : null;
             const parsedObject = JSON.parse(searchWithPlusSigns);
-            console.log(parsedObject);
-            console.log(parsedObject, 'what goes');
-            await page.goto(`https://duckduckgo.com/?q=site%3Atwitter.com+${parsedObject}&ia=web`);
+            await page.goto(`https://duckduckgo.com/?q=site%3Atiktok.com+${parsedObject}&ia=web`);
             const twitterSearchResults = await page.evaluate(() => {
                 const results = [];
                 for (let i = 0; i <= 9; i++) {
@@ -31,7 +28,6 @@ export const getSearchTwitterDatabase = async (req, res) => {
                 return results;
             });
             if (twitterSearchResults) {
-                console.log("results are here!");
             }
             res.json(twitterSearchResults);
             await browser.close();
