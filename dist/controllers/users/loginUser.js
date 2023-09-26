@@ -36,8 +36,19 @@ export const loginUser = async (req, res) => {
         if (!passwordMatch) {
             return res.status(401).json({ message: 'Invalid password' });
         }
-        const token = await jwt.sign({ id: user.id, }, process.env.JWT_KEY, { expiresIn: "365d" });
-        res.json({ username: user.username, email: user.email, token: token, id: user.id, registrationTokens: user.registrationTokens });
+        const token = await jwt.sign({ id: user.id, }, process.env.JWT_KEY, { expiresIn: "365d", });
+        res.cookie('LoginJWTToken', token, {
+            expires: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000),
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production' // Set to true in production
+        });
+        res.json({
+            username: user.username,
+            email: user.email,
+            token: token,
+            id: user.id,
+            registrationTokens: user.registrationTokens
+        });
     }
     catch (error) {
         console.error(error);

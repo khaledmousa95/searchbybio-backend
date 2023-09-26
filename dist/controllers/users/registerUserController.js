@@ -21,7 +21,7 @@ export const createUser = async (req, res) => {
             },
         });
         if (existingUser) {
-            return res.status(400).json({ message: 'Username or email already exists' });
+            return res.status(409).json({ message: 'Username or email already exists' });
         }
         const saltRounds = 10; // The number of salt rounds determines the computational cost
         const salt = await bcrypt.genSalt(saltRounds);

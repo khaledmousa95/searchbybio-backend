@@ -11,7 +11,8 @@ export const SearchPlatform = async (req, res) => {
             const adjustedSearchValue = JSON.stringify(searchValue);
             const searchWithPlusSigns = await adjustedSearchValue.trim() !== null ? adjustedSearchValue.replace(/ /g, '+') : null;
             const parsedObject = JSON.parse(searchWithPlusSigns);
-            await page.goto(`https://duckduckgo.com/?q=site%3A${chosenPlatform}.com+${parsedObject}&ia=web`);
+            console.log("searching for in searchController:", searchWithPlusSigns);
+            await page.goto(`https://duckduckgo.com/?q=site%3A${chosenPlatform}+${parsedObject}&ia=web`);
             const twitterSearchResults = await page.evaluate(() => {
                 const results = [];
                 for (let i = 0; i <= 9; i++) {
@@ -30,6 +31,7 @@ export const SearchPlatform = async (req, res) => {
                 return results;
             });
             if (twitterSearchResults) {
+                console.log(twitterSearchResults);
             }
             res.json(twitterSearchResults);
             await browser.close();

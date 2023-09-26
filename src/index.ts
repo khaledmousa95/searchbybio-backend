@@ -24,7 +24,7 @@ app.use(express.json()); // Parse JSON
 app.use(express.urlencoded({ extended: true })); // Parse URL-encoded data
 app.use(cookieParser());
 // search routes
-app.use('/api/search', searchRouteGet,searchRoutePost); //Post, Patch
+app.use('/api/search',searchRoutePost,  searchRouteGet); //Post, Patch
 app.use('/api/search/more', authenticateJWT,searchMorePost); //Post
 // user routes
 app.use('/api/user/login',userLogin ); //Post
