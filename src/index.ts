@@ -30,7 +30,7 @@ app.use('/api/search/more', authenticateJWT,searchMorePost); //Post
 // user routes
 app.use('/api/user/email',userEmail );//Get
 app.use('/api/user/login',userLogin ); //Post
-app.use('/api/user/register',userRegister ); //Post
+app.use('/api/user/register',userRegister ); //Post 
 app.use('/api/user/logout',userLogout );//Get
 app.use('/api/user/delete', authenticateJWT,userDelete );//Delete
 app.use('/api/user/update',authenticateJWT,tokenUpdate );//Update

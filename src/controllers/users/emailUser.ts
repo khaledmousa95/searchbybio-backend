@@ -5,6 +5,8 @@ config();
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 export const emailUser = async (req, res) => {
+
+
     try {
       const { email, username } = req.body;
       console.log("email from route:", email, "username from username", username);
