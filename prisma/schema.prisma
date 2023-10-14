@@ -18,6 +18,7 @@ model users {
   id         Int      @id @default(autoincrement())
   username   String   @db.VarChar(255) @unique
   password   String   @db.VarChar(255)
+  refreshToken   String?   @db.VarChar(255)
   registrationTokens Int     @default(10) // Set a default value (0 in this case, change it if needed)
   email      String   @db.VarChar(255) @unique
   createdAt  DateTime @default(now())

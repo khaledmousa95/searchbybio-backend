@@ -9,10 +9,7 @@ export const moreResultsButton = async (req, res) => {
             minRange = await req.body.minRange;
             maxRange = await req.body.maxRange;
             const { chosenPlatform } = await req.body;
-            console.log("searchValue : ", searchValue);
             const searchWithPlusSigns = searchValue.replace(/ /g, '+') || "search";
-            console.log(chosenPlatform, 'chosen platform in the searchmorebutton backend');
-            console.log("searching for in searchMoreButton:", searchWithPlusSigns);
             await page.goto(`https://duckduckgo.com/?q=site%3A${chosenPlatform}+${searchWithPlusSigns}&ia=web`);
             const buttonSelector = '#react-layout #more-results';
             await page.waitForSelector(buttonSelector);
@@ -38,7 +35,6 @@ export const moreResultsButton = async (req, res) => {
                 return results;
             }, minRange, maxRange);
             if (twitterSearchResults) {
-                console.log(twitterSearchResults);
             }
             res.json(twitterSearchResults);
             await browser.close();

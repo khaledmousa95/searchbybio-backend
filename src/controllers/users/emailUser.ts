@@ -9,7 +9,6 @@ export const emailUser = async (req, res) => {
 
     try {
       const { email, username } = req.body;
-      console.log("email from route:", email, "username from username", username);
       await resend.emails.send({
         from: "hello@email.searchbybio.com",
         to: email,
