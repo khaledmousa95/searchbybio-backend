@@ -1,40 +1,52 @@
-// create a connection the rds mysql database
+// app.js
 import express from 'express';
 import * as dotenv from 'dotenv';
-import { searchRouteGet, searchRoutePost } from './routes/search/searchDBRoute.js';
-import { searchMorePost } from './routes/search/searchMore.js';
-import * as cors from "cors";
-import { userRegister } from './routes/users/registerUser.js';
-import { userLogin } from './routes/users/loginUser.js';
-import { userLogout } from './routes/users/logoutUser.js';
-import { authenticateJWT } from './middleware/Auth.js';
-import { userDelete } from './routes/users/deleteUser.js';
-import cookieParser from "cookie-parser";
-import { tokenUpdate } from './routes/users/updateUser.js';
-import { userEmail } from './routes/users/emailUser.js';
-// const prisma = new PrismaClient();
+import cors from 'cors';
+import helmet from 'helmet';
+import hpp from 'hpp';
+import { errorHandler } from './middleware/errorMiddleware.js';
+import cookieParser from 'cookie-parser';
+import adminRoutes from './routes/adminRouter.js';
+import userRoutes from './routes/usersRouter.js';
+import searchRoutes from './routes/searchRouter.js';
+import limiter from './utils/rateLimiterMiddleware.js';
+import { checkRedisConnection } from './utils/redisDB.js';
+import configureSession from './middleware/SessionConfig.js'; // Import the session configuration
+import compression from 'compression';
 const app = express();
-const port = 5000;
-//open cors for all origins
-app.use(cors.default());
+const port = 8080;
+// Cors config
+app.use(cors({
+    origin: 'http://localhost:3000',
+    credentials: true // Allow credentials (e.g., cookies)
+}));
+// Security middleware
+app.use(helmet());
+app.use(hpp());
+// .env config
 dotenv.config();
-//middleware
-app.use(express.json()); // Parse JSON
-app.use(express.urlencoded({ extended: true })); // Parse URL-encoded data
+// Configure session middleware
+app.use(configureSession());
+app.use(express.urlencoded({ extended: true, limit: '10kb' }));
+app.use(express.json({ limit: '10kb' }));
+// app.use(sanitizeUserInput); // Use the sanitize middleware
 app.use(cookieParser());
-// search routes
-app.use('/api/search', searchRoutePost, searchRouteGet); //Post, Patch
-app.use('/api/search/more', authenticateJWT, searchMorePost); //Post
-// user routes
-app.use('/api/user/email', userEmail); //Get
-app.use('/api/user/login', userLogin); //Post
-app.use('/api/user/register', userRegister); //Post 
-app.use('/api/user/logout', userLogout); //Get
-app.use('/api/user/delete', authenticateJWT, userDelete); //Delete
-app.use('/api/user/update', authenticateJWT, tokenUpdate); //Update
+// Applying rate-limiting middleware to all routes for ip of 15 requsts a mintue and 100 an hour
+app.use(limiter);
+// error handling for status 500
+app.use(errorHandler);
+app.use(compression());
+// Search routes
+app.use('/api/v1/search', searchRoutes);
+// User routes
+app.use('/api/v1/users', userRoutes);
+// Admin routes 
+app.use('/api/v1/admin', adminRoutes);
 app.use(express.static('public'));
 // app.use(errorHandler)
-app.listen(port, () => {
-    console.log(`Listening on port ${port}`);
+checkRedisConnection().then(() => {
+    app.listen(port, () => {
+        console.log(`Listening on port ${port}`);
+    });
 });
 //# sourceMappingURL=index.js.map

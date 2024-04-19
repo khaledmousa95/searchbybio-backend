@@ -6,7 +6,7 @@ import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 export const deleteUser = async (req: Request, res: Response) => {
-  
+
   const userId = parseInt(req.params.id, 10); // Convert to number if necessary
     try {
 
@@ -17,7 +17,9 @@ export const deleteUser = async (req: Request, res: Response) => {
       });
   
       if (!user || user === null) {
-        return res.status(404).json({ message: 'User not found' });
+        return  
+     
+      
       }
   
       await prisma.users.delete({

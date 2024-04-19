@@ -4,7 +4,7 @@ export const moreResultsButton = async(req,res)=>{
     try{
         let minRange,maxRange
  
-
+        
        const searchResults = async function(){
 
         const browser = await puppeteer.launch({ headless: "new" });
@@ -39,17 +39,27 @@ for (let i = Number(minRange); i <= Number(maxRange); i++) {
     }
 }
 
+
 return results;
 },minRange, maxRange);
 if(twitterSearchResults){
+    
+
+  res.json(twitterSearchResults);
+ 
+
 }
-res.json(twitterSearchResults);
         await browser.close()
+
     }
+   
+
     searchResults()
 
 }catch (error) {
+    
+
     console.error(error);
-    res.status(500).json({ message: "Server Error" });
+    res.status(400).json({ message: "could find more results" });
 }
 }

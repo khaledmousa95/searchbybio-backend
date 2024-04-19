@@ -6,11 +6,12 @@ export const updateTokens = async (req, res) => {
     try {
         const userId = Number(req.params.id); // Convert to number if necessary
  // Assuming id is provided in the URL params
-      const registrationTokens = await req.body.registrationTokens;
+ const registrationTokensNumber = await req.body.registrationTokens;
+ const registrationTokens =  parseInt(registrationTokensNumber) 
       if (!userId || !registrationTokens) {
         return res.status(400).json({ message: 'Missing required fields' });
       }
-  
+      
       // Find the user by their ID
       const user = await prisma.users.findUnique({
         where: {

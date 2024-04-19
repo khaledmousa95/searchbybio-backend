@@ -35,15 +35,15 @@ export const moreResultsButton = async (req, res) => {
                 return results;
             }, minRange, maxRange);
             if (twitterSearchResults) {
+                res.json(twitterSearchResults);
             }
-            res.json(twitterSearchResults);
             await browser.close();
         };
         searchResults();
     }
     catch (error) {
         console.error(error);
-        res.status(500).json({ message: "Server Error" });
+        res.status(400).json({ message: "could find more results" });
     }
 };
 //# sourceMappingURL=searchMoreButton.js.map
