@@ -17,7 +17,7 @@ const app = express();
 const port = 8080;
 // Cors config
 app.use(cors({
-    origin: 'http://localhost:3000',
+    origin: 'https://searchbybio.com',
     credentials: true // Allow credentials (e.g., cookies)
 }));
 // Security middleware

@@ -19,7 +19,7 @@ const app = express();
 const port = 8080;
 // Cors config
 app.use(cors({
-  origin: 'http://localhost:3000', // Allow requests from this origin
+  origin: 'https://searchbybio.com', // Allow requests from your frontend domain
   credentials: true // Allow credentials (e.g., cookies)
 }));
 
