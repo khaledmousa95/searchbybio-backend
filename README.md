@@ -1,5 +1,8 @@
 SearchByBio Backend
-SearchByBio is a backend service designed to facilitate search functionality based on user biographical information. This project aims to provide a robust and efficient solution for searching user profiles by their biographical details.
+
+
+SearchByBio is a backend service designed to facilitate search functionality based on user biographical information. This project aims to provide 
+a robust and efficient solution for searching user profiles by their biographical details.
 
 Features
 Biographical Search: Users can search for other users based on various biographical details such as name, location, profession, etc.
