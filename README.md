@@ -42,11 +42,17 @@ Once the server is running, you can send HTTP requests to the provided endpoints
 
 Endpoints
 GET /users: Retrieve a list of all users.
+
 GET /users/:id: Retrieve a specific user by ID.
+
 POST /users: Create a new user.
+
 PUT /users/:id: Update an existing user.
+
 DELETE /users/:id: Delete a user by ID.
+
 GET /search: Perform a biographical search.
+
 For detailed usage instructions and request/response examples, refer to the API documentation.
 
 Contribution
