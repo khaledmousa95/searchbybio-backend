@@ -15,8 +15,18 @@ export async function authenticateJWT(req, res, next) {
         if (!session) {
             return res.status(401).json({ message: 'Unauthorized: Session expired or not logged in ' });
         }
+        let sessionDataInRedis;
+        try {
+            const pingResult = await redis.ping();
+            console.log(`Redis connection in Auth: ${pingResult}`);
+            const patchedSession = `sess:${sessionID}`;
+            sessionDataInRedis = await redis.get(patchedSession);
+        }
+        catch (error) {
+            console.error('Failed to connect to Redis:', error);
+            process.exit(1); // Exit the process if Redis connection fails
+        }
         // Check if the session ID and email provided by the user match the data in Redis
-        const sessionDataInRedis = await redis.get(`sess:${sessionID}`);
         if (!sessionDataInRedis) {
             return res.status(403).json({ message: 'Unauthorized: Session expired or not logged in' });
         }

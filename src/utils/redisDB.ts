@@ -3,7 +3,7 @@ import Redis from 'ioredis';
 import * as dotenv from "dotenv"
 
 dotenv.config();
-export const redis = new Redis({
+export const redis =  new Redis({
   host: process.env.REDIS_HOST,
   port: parseInt(process.env.REDIS_PORT),
   password: process.env.REDIS_PASSWORD,

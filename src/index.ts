@@ -23,6 +23,9 @@ app.use(cors({
   credentials: true // Allow credentials (e.g., cookies)
 }));
 
+
+
+
 // Security middleware
 app.use(helmet());
 app.use(hpp());
@@ -32,7 +35,6 @@ dotenv.config();
 
 // Configure session middleware
 app.use(configureSession());
-
 app.use(express.urlencoded({ extended: true, limit: '10kb' }));
 app.use(express.json({ limit: '10kb' }));
 // app.use(sanitizeUserInput); // Use the sanitize middleware
